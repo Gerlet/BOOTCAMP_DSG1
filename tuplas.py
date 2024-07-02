@@ -1,0 +1,10 @@
+dias=("lunes","martes","miercoles","jueves")
+print(dias)
+dias=list(dias)
+print(type(dias))
+dias.append("viernes")
+print(dias)
+dias=tuple(dias)
+print(dias)
+for dia in dias:
+    print(dia)
