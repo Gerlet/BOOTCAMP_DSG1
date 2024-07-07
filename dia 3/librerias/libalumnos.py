@@ -13,7 +13,7 @@ def mostrar_menu(ancho):
           """)
     print("="*ancho)
 
-def buscar_alumno(valor_busqueda_listado):
+def buscar_alumno(valor_busqueda,lista_alumnos):
     posicion_busqueda=-1
     for posicion in range(len(lista_alumnos)):
         dic_alumno=lista_alumnos[posicion]
