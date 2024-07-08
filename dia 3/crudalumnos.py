@@ -1,13 +1,13 @@
 import os
 import tabulate
 import time
-from librerias.libalumnos import buscar_alumno,mostrar_menu,cargar_datos,grabar_datos
+from librerias.libaempresas import buscar_empresa,mostrar_menu,cargar_datos,grabar_datos
 
-f = open('alumnos.txt','r')
-str_alumnos = f.read()
+f = open('empresas.txt','r')
+str_empresas = f.read()
 f.close()
 
-lista_alumnos = cargar_datos(str_alumnos)
+lista_empresas = cargar_datos(str_empresas)
 ANCHO = 50
 opcion = 0
 
@@ -19,63 +19,63 @@ while(opcion < 5):
     os.system("cls")
     if(opcion == 1):
         print("="*ANCHO)
-        print(" " * 10 + "[1] REGISTRAR ALUMNO")
+        print(" " * 10 + "[1] REGISTRAR EMPRESA")
         print("="*ANCHO)
-        nombre = input("NOMBRE : ")
-        email = input("EMAIL : ")
-        celular = input("CELULAR : ")
-        dic_nuevo_alumno = {
-            'nombre':nombre,
-            'email':email,
-            'celular':celular
+        ruc = input("RUC : ")
+        razonsocial = input("RAZÓN SOCIAL : ")
+        dirección = input("DIRECCIÓN : ")
+        dic_nueva_empresa = {
+            'RUC':ruc,
+            'RAZÓN SOCIAL':razonsocial,
+            'DIRECCIÓN':dirección
         }
-        lista_alumnos.append(dic_nuevo_alumno)
-        print(" ALUMNO REGISTRADO CON EXITO")
+        lista_empresas.append(dic_nueva_empresa)
+        print(" EMPRESA REGISTRADA CON EXITO")
     elif(opcion == 2):
         print("="*ANCHO)
-        print(" " * 10 + "[2] MOSTRAR ALUMNOS")
+        print(" " * 10 + "[2] MOSTRAR EMPRESAS")
         print("="*ANCHO)
-        cabeceras = ["NOMBRE","EMAIL","CELULAR"]
-        tabla = [alumno.values() for alumno in lista_alumnos]
+        cabeceras = ["RUC","RAZÓN SOCIAL","DIRECCIÓN"]
+        tabla = [empre.values() for empre in lista_empresas]
         print(tabulate.tabulate(tabla,headers=cabeceras,tablefmt="grid"))
         input("presione ENTER para continuar...")
     elif(opcion == 3):
         print("="*ANCHO)
-        print(" " * 10 + "[3] ACTUALIZAR ALUMNO")
+        print(" " * 10 + "[3] ACTUALIZAR EMPRESA")
         print("="*ANCHO)
-        valor_busqueda = input('INGRESE EMAIL DEL ALUMNO A ACTUALIZAR :')
-        posicion_busqueda = buscar_alumno(valor_busqueda,lista_alumnos)
+        valor_busqueda = input('INGRESE RUC DE LA EMPRESA:')
+        posicion_busqueda = buscar_empresa(valor_busqueda,lista_empresas)
         if posicion_busqueda == -1:
-            print("NO SE ENCONTRO EL ALUMNO SOLICITADO")
+            print("NO SE ENCONTRO LA EMPRESA")
         else:
-            print(f' ALUMNO A ACTUALIZAR : {lista_alumnos[posicion_busqueda].get("nombre")}')
-            nuevo_nombre = input("NOMBRE : ")
-            nuevo_email = input("EMAIL : ")
-            nuevo_celular = input("CELULAR : ")
-            dic_actualizar_alumno = {
-                'nombre':nuevo_nombre,
-                'email':nuevo_email,
-                'celular':nuevo_celular
+            print(f' EMPRESA A ACTUALIZAR : {lista_empresas[posicion_busqueda].get("RAZÓN SOCIAL")}')
+            nuevo_ruc = input("RUC : ")
+            nueva_razonsocial = input("RAZÓN SOCIAL : ")
+            nueva_direccion = input("DIRECCIÓN : ")
+            dic_actualizar_empresa = {
+                'RUC':nuevo_ruc,
+                'RAZÓN SOCIAL':nueva_razonsocial,
+                'DIRECCIÓN':nueva_direccion
             }
-            lista_alumnos[posicion_busqueda] = dic_actualizar_alumno
-            print("ALUMNO ACTUALIZADO CON EXITO...")
+            lista_empresas[posicion_busqueda] = dic_actualizar_empresa
+            print("EMPRESA ACTUALIZADA CON EXITO...")
     elif(opcion == 4):
         print("="*ANCHO)
-        print(" " * 10 + "[4] ELIMINAR ALUMNO")
+        print(" " * 10 + "[4] ELIMINAR EMPRESA")
         print("="*ANCHO)
-        valor_busqueda = input('INGRESE EMAIL DEL ALUMNO A ELIMINAR :')
-        posicion_busqueda = buscar_alumno(valor_busqueda,lista_alumnos)
+        valor_busqueda = input('INGRESE RAZÓN SOCIAL DE LA EMPRESA :')
+        posicion_busqueda = buscar_empresa(valor_busqueda,lista_empresas)
         if posicion_busqueda == -1:
-            print("NO SE ENCONTRO EL ALUMNO SOLICITADO")
+            print("NO SE ENCONTRO LA EMPRESA")
         else:
-            lista_alumnos.pop(posicion_busqueda)
-            print('ALUMNO ELIMINADO!!!')
+            lista_empresas.pop(posicion_busqueda)
+            print('EMPRESA ELIMINADA!!!')
     elif(opcion == 5):
         print("="*ANCHO)
         print(" " * 10 + "[5] SALIR")
-        str_alumnos = grabar_datos(lista_alumnos)
-        fsalida = open('alumnos.txt','w')
-        fsalida.write(str_alumnos)
+        str_empresas = grabar_datos(lista_empresas)
+        fsalida = open('empresas.txt','w')
+        fsalida.write(str_empresas)
         fsalida.close()
         print("="*ANCHO)
     else:
